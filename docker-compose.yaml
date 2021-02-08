@@ -1,0 +1,34 @@
+version: '3.3'
+
+services:
+  composer:
+    image: composer:latest
+    volumes:
+    - ./:/app
+    working_dir: /app
+    command: composer install --ignore-platform-reqs
+
+  mariadb:
+    image: mariadb:latest
+    volumes:
+    - ./.docker/database:/docker-entrypoint-initdb.d:cached,ro
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test
+
+  web:
+    build: ./.docker
+    volumes:
+      - ./:/var/www/html
+      - ./.docker/apache/sites-enabled:/etc/apache2/sites-enabled
+      - ./.docker/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
+    ports:
+    - 8000:80
+    environment:
+      NETTE_DEBUG: 'd87632de-5284-489e-aa61-38b9cd8d396f' # využívá se v Bootstrap.php
+      XDEBUG_CONFIG: "remote_host=10.0.0.138"
+
+  adminer:
+    image: dockette/adminer:dg
+    ports:
+      - 8081:80

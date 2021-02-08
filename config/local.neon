@@ -1,0 +1,7 @@
+parameters:
+
+
+database:
+	dsn: 'mysql:host=maridadb;dbname=test' # mariadb je název mariadb služby v docker-compose.yaml
+	user: root
+	password: root
