@@ -1,7 +1,7 @@
 # Nette with Docker
 - Spuštění bez dockeru - `php -S localhost:8000 -t www`
 
-    - Není třeba mít existující databázi, pokud se v aplikaci nepoužívá
+    - MySQL není potřeba mít zaplý, pokud se v aplikaci nevyžaduje spojení
 
 - Spuštění v dockeru - `docker-compose up`, případně s `-d` (běžet na pozadí) nebo `--build` (při prvním spuštění) 
 
